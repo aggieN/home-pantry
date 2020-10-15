@@ -28,7 +28,10 @@ const mapStateToProps = (state) => {
 };
 
 Storage.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object.isRequired),
 };
 
+Storage.defaultProps = {
+  data: [],
+};
 export default connect(mapStateToProps)(Storage);

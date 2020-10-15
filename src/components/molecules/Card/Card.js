@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { removeItem as removeItemAction } from 'actions';
 import Heading from 'components/atoms/Heading';
 import Button from 'components/atoms/Button';
 import ButtonIcon from 'components/atoms/ButtonIcon';
@@ -36,7 +38,7 @@ const StyledButton = styled(Button)`
   margin-top: 3rem;
 `;
 
-const Card = ({ category, items }) => (
+const Card = ({ category, items, removeItem }) => (
   <Wrapper>
     <Header>
       <StyledHeading>{category}</StyledHeading>
@@ -48,7 +50,7 @@ const Card = ({ category, items }) => (
           <p>{item.name}</p>
           <p>{`${item.amount} ${item.unit}`}</p>
           <ButtonIcon icon={penIcon} />
-          <ButtonIcon icon={deleteIcon} />
+          <ButtonIcon icon={deleteIcon} onClick={() => removeItem(item.id)} />
         </ListItem>
       ))}
       <StyledButton>Add item</StyledButton>
@@ -58,6 +60,22 @@ const Card = ({ category, items }) => (
 
 Card.propTypes = {
   category: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      amount: PropTypes.number.isRequired,
+      unit: PropTypes.string.isRequired,
+    }),
+  ),
+  removeItem: PropTypes.func.isRequired,
 };
-export default Card;
+
+Card.defaultProps = {
+  items: [],
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  removeItem: (id) => dispatch(removeItemAction(id)),
+});
+export default connect(null, mapDispatchToProps)(Card);

@@ -4,13 +4,13 @@ const initialState = [
     items: [
       {
         id: 1,
-        name: 'carrot',
+        name: 'carrots',
         amount: 3,
         unit: 'pc',
       },
       {
         id: 2,
-        name: 'potato',
+        name: 'potatos',
         amount: 1,
         unit: 'kg',
       },
@@ -27,7 +27,7 @@ const initialState = [
     items: [
       {
         id: 4,
-        name: 'orange',
+        name: 'oranges',
         amount: 4,
         unit: 'pc',
       },

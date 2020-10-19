@@ -4,6 +4,7 @@ export const theme = {
   grey: 'hsl(120, 1%, 29%)',
   lavender: 'hsl(262, 9%, 52%)',
   blue: 'hsl(218, 55%, 65%)',
+  transparentBlue: 'rgb(117, 153, 215, 0.9)',
   light: 400,
   medium: 500,
   bold: 600,
@@ -13,6 +14,6 @@ export const theme = {
     s: '1.6rem',
     m: '2.1rem',
     l: '2.4rem',
-    xl: '4rem',
+    xl: '3.5rem',
   },
 };

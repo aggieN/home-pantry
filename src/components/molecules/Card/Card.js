@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -38,25 +38,67 @@ const StyledButton = styled(Button)`
   margin-top: 3rem;
 `;
 
-const Card = ({ category, items, removeItem }) => (
-  <Wrapper>
-    <Header>
-      <StyledHeading>{category}</StyledHeading>
-    </Header>
+const Warning = styled.div`
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 50px;
+  background-color: white;
+  box-shadow: 1px 2px 10px ${({ theme }) => theme.dark};
+`;
 
-    <ListWrapper>
-      {items.map((item) => (
-        <ListItem key={item.id}>
-          <p>{item.name}</p>
-          <p>{`${item.amount} ${item.unit}`}</p>
-          <ButtonIcon icon={penIcon} />
-          <ButtonIcon icon={deleteIcon} onClick={() => removeItem(item.id)} />
-        </ListItem>
-      ))}
-      <StyledButton>Add item</StyledButton>
-    </ListWrapper>
-  </Wrapper>
-);
+const WarningText = styled.p`
+  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-weight: ${({ theme }) => theme.bold};
+`;
+
+class Card extends Component {
+  state = {
+    warning: false,
+    clickedItem: null,
+  };
+
+  openWarning = (clickedId) => this.setState({ warning: true, clickedItem: clickedId });
+
+  render() {
+    const { category, items, removeItem } = this.props;
+    const { warning, clickedItem } = this.state;
+    return (
+      <Wrapper>
+        <Header>
+          <StyledHeading>{category}</StyledHeading>
+        </Header>
+
+        <ListWrapper>
+          {items.map((item) => (
+            <ListItem key={item.id}>
+              <p>{item.name}</p>
+              <p>{`${item.amount} ${item.unit}`}</p>
+              <ButtonIcon icon={penIcon} />
+              <ButtonIcon icon={deleteIcon} onClick={() => this.openWarning(item.id)} />
+
+              {warning && clickedItem === item.id ? (
+                <Warning>
+                  <WarningText>{`Are you sure you want to remove ${item.name} from your list?`}</WarningText>
+
+                  <StyledButton onClick={() => removeItem(item.id)} secondary>
+                    Yes!
+                  </StyledButton>
+                </Warning>
+              ) : null}
+            </ListItem>
+          ))}
+
+          <StyledButton>Add item</StyledButton>
+        </ListWrapper>
+      </Wrapper>
+    );
+  }
+}
 
 Card.propTypes = {
   category: PropTypes.string.isRequired,

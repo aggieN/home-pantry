@@ -20,6 +20,7 @@ const Button = styled.button`
     secondary &&
     css`
       height: 5rem;
+      width: 10rem;
       font-size: ${({ theme }) => theme.fontSize.m};
     `}
 `;

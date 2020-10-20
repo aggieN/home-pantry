@@ -56,6 +56,11 @@ const WarningText = styled.p`
   font-weight: ${({ theme }) => theme.bold};
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
 class Card extends Component {
   state = {
     warning: false,
@@ -63,6 +68,8 @@ class Card extends Component {
   };
 
   openWarning = (clickedId) => this.setState({ warning: true, clickedItem: clickedId });
+
+  closeWarning = () => this.setState({ warning: false });
 
   render() {
     const { category, items, removeItem } = this.props;
@@ -84,10 +91,14 @@ class Card extends Component {
               {warning && clickedItem === item.id ? (
                 <Warning>
                   <WarningText>{`Are you sure you want to remove ${item.name} from your list?`}</WarningText>
-
-                  <StyledButton onClick={() => removeItem(item.id)} secondary>
-                    Yes!
-                  </StyledButton>
+                  <ButtonContainer>
+                    <StyledButton onClick={() => removeItem(item.id)} secondary>
+                      Yes
+                    </StyledButton>
+                    <StyledButton secondary onClick={this.closeWarning}>
+                      No
+                    </StyledButton>
+                  </ButtonContainer>
                 </Warning>
               ) : null}
             </ListItem>

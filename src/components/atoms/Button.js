@@ -6,11 +6,13 @@ const Button = styled.button`
   border: none;
   border-radius: 1rem;
   height: 4rem;
+  min-width: 10rem;
   transition: all 0.5s 0.1s ease;
   cursor: pointer;
   outline: none;
   font-weight: ${({ theme }) => theme.bold};
   text-transform: uppercase;
+  margin-top: 3rem;
 
   &:hover {
     transform: scale(1.1);
@@ -20,7 +22,7 @@ const Button = styled.button`
     secondary &&
     css`
       height: 5rem;
-      width: 10rem;
+
       font-size: ${({ theme }) => theme.fontSize.m};
     `}
 `;

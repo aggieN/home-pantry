@@ -6,6 +6,7 @@ import { removeItem as removeItemAction } from 'actions';
 import Heading from 'components/atoms/Heading';
 import Button from 'components/atoms/Button';
 import ButtonIcon from 'components/atoms/ButtonIcon';
+import Modal from 'components/organisms/Modal';
 import penIcon from 'assets/icons/pen.svg';
 import deleteIcon from 'assets/icons/trash.svg';
 
@@ -34,21 +35,17 @@ const ListItem = styled.div`
   align-items: center;
 `;
 
-const StyledButton = styled(Button)`
-  margin-top: 3rem;
-`;
-
 const Warning = styled.div`
   position: fixed;
-  width: 400px;
-  height: 400px;
+  width: 40rem;
+  height: 45rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  padding: 50px;
-  background-color: white;
+  padding: 45px;
   box-shadow: 1px 2px 10px ${({ theme }) => theme.dark};
+  background-color: white;
 `;
 
 const WarningText = styled.p`
@@ -65,15 +62,18 @@ class Card extends Component {
   state = {
     warning: false,
     clickedItem: null,
+    isModal: false,
   };
 
   openWarning = (clickedId) => this.setState({ warning: true, clickedItem: clickedId });
 
   closeWarning = () => this.setState({ warning: false });
 
+  openModal = () => this.setState({ isModal: true });
+
   render() {
     const { category, items, removeItem } = this.props;
-    const { warning, clickedItem } = this.state;
+    const { warning, clickedItem, isModal } = this.state;
     return (
       <Wrapper>
         <Header>
@@ -90,21 +90,22 @@ class Card extends Component {
 
               {warning && clickedItem === item.id ? (
                 <Warning>
-                  <WarningText>{`Are you sure you want to remove ${item.name} from your list?`}</WarningText>
+                  <WarningText>{`Are you sure you want to remove ${item.name} from your ${category} list?`}</WarningText>
                   <ButtonContainer>
-                    <StyledButton onClick={() => removeItem(item.id)} secondary>
+                    <Button onClick={() => removeItem(item.id)} secondary>
                       Yes
-                    </StyledButton>
-                    <StyledButton secondary onClick={this.closeWarning}>
+                    </Button>
+                    <Button secondary onClick={this.closeWarning}>
                       No
-                    </StyledButton>
+                    </Button>
                   </ButtonContainer>
                 </Warning>
               ) : null}
             </ListItem>
           ))}
 
-          <StyledButton>Add item</StyledButton>
+          <Button onClick={this.openModal}>Add item</Button>
+          {isModal && <Modal />}
         </ListWrapper>
       </Wrapper>
     );

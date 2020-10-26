@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from 'theme/GlobalStyle';
-import Navigation from 'components/organisms/Navigation/Navigation';
+import Navigation from 'components/organisms/Navigation';
 import { theme } from 'theme/mainTheme';
 
 const MainTemplate = ({ children }) => (

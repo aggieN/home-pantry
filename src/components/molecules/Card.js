@@ -6,7 +6,7 @@ import { removeItem as removeItemAction } from 'actions';
 import Heading from 'components/atoms/Heading';
 import Button from 'components/atoms/Button';
 import ButtonIcon from 'components/atoms/ButtonIcon';
-import Modal from 'components/organisms/Modal';
+import NewItemModal from 'components/organisms/NewItemModal';
 import penIcon from 'assets/icons/pen.svg';
 import deleteIcon from 'assets/icons/trash.svg';
 
@@ -69,7 +69,7 @@ class Card extends Component {
 
   closeWarning = () => this.setState({ warning: false });
 
-  openModal = () => this.setState({ isModal: true });
+  toggleModal = () => this.setState((prevState) => ({ isModal: !prevState.isModal }));
 
   render() {
     const { category, items, removeItem } = this.props;
@@ -104,8 +104,8 @@ class Card extends Component {
             </ListItem>
           ))}
 
-          <Button onClick={this.openModal}>Add item</Button>
-          {isModal && <Modal />}
+          <Button onClick={this.toggleModal}>Add item</Button>
+          {isModal && <NewItemModal category={category} handleClose={this.toggleModal} />}
         </ListWrapper>
       </Wrapper>
     );
@@ -116,7 +116,7 @@ Card.propTypes = {
   category: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       name: PropTypes.string.isRequired,
       amount: PropTypes.number.isRequired,
       unit: PropTypes.string.isRequired,

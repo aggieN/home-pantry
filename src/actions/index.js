@@ -7,14 +7,13 @@ export const removeItem = (id) => {
   };
 };
 
-export const addItem = (id, name, amount, unit) => {
+export const addItem = (category, itemContent) => {
+  const getId = () => `_${Math.random().toString(36).substr(2, 9)}`;
   return {
     type: 'ADD_ITEM',
     payload: {
-      id,
-      name,
-      amount,
-      unit,
+      category,
+      item: { id: getId(), ...itemContent },
     },
   };
 };

@@ -6,7 +6,7 @@ const Button = styled.button`
   border: none;
   border-radius: 1rem;
   height: 4rem;
-  min-width: 10rem;
+  width: 12rem;
   transition: all 0.5s 0.1s ease;
   cursor: pointer;
   outline: none;
@@ -25,6 +25,39 @@ const Button = styled.button`
 
       font-size: ${({ theme }) => theme.fontSize.m};
     `}
+
+  ${({ close }) =>
+    close &&
+    css`
+      position: absolute;
+      right: 3rem;
+      top: 0;
+      width: 4rem;
+      height: 4rem;
+        &::before, 
+        &::after {
+          content: '';
+          width: 2.2rem; 
+          height: 0.3rem;
+          position: absolute;
+          background-color: ${({ theme }) => theme.dark};
+          display: block;
+          top: 50%;
+          transform: translateY(-50%);
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: 0 auto;
+          transform-origin: 50%;
+        }
+        
+        &::before {
+          transform: rotate(45deg);
+        }
+        
+        &::after {
+          transform: rotate(-45deg);
+          `}
 `;
 
 export default Button;

@@ -1,29 +1,9 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Heading from 'components/atoms/Heading';
-import ProductList from 'components/molecules/ProductsList';
+import ProductList from 'components/molecules/ProductsList/ProductsList';
 import Button from 'components/atoms/Button';
-import NewItemModal from 'components/organisms/NewItemModal';
-
-const Wrapper = styled.div`
-  box-shadow: -7px 5px 15px rgba(0, 0, 0, 0.5);
-`;
-
-const Header = styled.div`
-  background-color: ${({ theme }) => theme.blue};
-  width: 100%;
-  height: 5rem;
-`;
-
-const StyledHeading = styled(Heading)`
-  display: block;
-  padding: 1rem 2rem;
-`;
-
-const ListWrapper = styled.div`
-  padding: 2rem;
-`;
+import NewItemModal from 'components/organisms/NewItemModal/NewItemModal';
+import { Wrapper, Header, StyledHeading, ListWrapper } from './styles';
 
 class Card extends Component {
   state = {

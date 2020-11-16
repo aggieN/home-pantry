@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Card from 'components/molecules/Card';
+import Card from 'components/organisms/Card';
 
 const GridContainer = styled.div`
   display: grid;

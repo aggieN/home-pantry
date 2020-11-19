@@ -8,7 +8,6 @@ import ButtonIcon from 'components/atoms/ButtonIcon';
 import penIcon from 'assets/icons/pen.svg';
 import deleteIcon from 'assets/icons/trash.svg';
 import { ListItem, Warning, WarningText, ButtonContainer } from './styles';
-import { editItem } from '../../../actions';
 
 class ProductsList extends Component {
   state = {
@@ -17,17 +16,16 @@ class ProductsList extends Component {
     isInputActive: false,
   };
 
-  inputRef = React.createRef();
-
   openWarning = (clickedId) =>
     this.setState({ warning: true, clickedItem: clickedId, isInputActive: false });
 
   closeWarning = () => this.setState({ warning: false });
 
-  activateInput = (clickedId) => this.setState({ isInputActive: true, clickedItem: clickedId });
+  activateInput = (clickedId) =>
+    this.setState({ isInputActive: true, clickedItem: clickedId, warning: false });
 
   render() {
-    const { items, removeItem, category } = this.props;
+    const { items, removeItem, editItem, category } = this.props;
     const { warning, clickedItem, isInputActive } = this.state;
     return (
       <div>
@@ -54,6 +52,7 @@ class ProductsList extends Component {
                 }}
                 onSubmit={(values) => {
                   editItem(item.id, values);
+                  this.setState({ isInputActive: false });
                 }}
               >
                 {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
@@ -131,6 +130,7 @@ ProductsList.propTypes = {
     }),
   ),
   removeItem: PropTypes.func.isRequired,
+  editItem: PropTypes.func.isRequired,
 };
 
 ProductsList.defaultProps = {

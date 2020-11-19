@@ -99,7 +99,9 @@ const rootReducer = (state = initialState, action) => {
     case 'EDIT_ITEM':
       return state.map((element) => ({
         ...element,
-        items: [...element.items, action.payload.item],
+        items: element.items.map((item) =>
+          item.id === action.payload.item.id ? action.payload.item : item,
+        ),
       }));
 
     default:

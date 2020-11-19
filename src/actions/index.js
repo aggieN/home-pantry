@@ -17,3 +17,12 @@ export const addItem = (category, itemContent) => {
     },
   };
 };
+
+export const editItem = (id, itemContent) => {
+  return {
+    type: 'EDIT_ITEM',
+    payload: {
+      item: { id, ...itemContent },
+    },
+  };
+};

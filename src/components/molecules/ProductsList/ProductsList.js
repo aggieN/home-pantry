@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { removeItem as removeItemAction, editItem as editItemAction } from 'actions';
-import Button from 'components/atoms/Button';
+import Warning from 'components/molecules/Warning/Warning';
 import ButtonIcon from 'components/atoms/ButtonIcon';
 import penIcon from 'assets/icons/pen.svg';
+import cancelIcon from 'assets/icons/cancel.svg';
+import checkIcon from 'assets/icons/check.svg';
 import deleteIcon from 'assets/icons/trash.svg';
-import { ListItem, Warning, WarningText, ButtonContainer } from './styles';
+import { StyledEditForm, InputWrapper, InlineInput, Error, InlineSelect, ListItem } from './styles';
 
 class ProductsList extends Component {
   state = {
@@ -21,8 +23,10 @@ class ProductsList extends Component {
 
   closeWarning = () => this.setState({ warning: false });
 
-  activateInput = (clickedId) =>
+  activateInlineEdit = (clickedId) =>
     this.setState({ isInputActive: true, clickedItem: clickedId, warning: false });
+
+  cancelEdit = () => this.setState({ isInputActive: false });
 
   render() {
     const { items, removeItem, editItem, category } = this.props;
@@ -30,7 +34,7 @@ class ProductsList extends Component {
     return (
       <div>
         {items.map((item) => (
-          <ListItem key={item.id}>
+          <div key={item.id}>
             {isInputActive && clickedItem === item.id ? (
               <Formik
                 initialValues={{
@@ -56,63 +60,61 @@ class ProductsList extends Component {
                 }}
               >
                 {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
-                  <Form autoComplete="off">
-                    <input
-                      type="text"
-                      name="name"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.name}
-                    />
-                    {errors.name && touched.name ? <div>{errors.name}</div> : null}
+                  <StyledEditForm autoComplete="off">
+                    <InputWrapper>
+                      <InlineInput
+                        type="text"
+                        name="name"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.name}
+                      />
+                      {errors.name && touched.name ? <Error>{errors.name}</Error> : null}
+                    </InputWrapper>
+                    <InputWrapper>
+                      <InlineInput
+                        type="number"
+                        name="amount"
+                        min="1"
+                        max="1000"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.amount}
+                      />
+                      {errors.amount && touched.amount ? <Error>{errors.amount}</Error> : null}
+                    </InputWrapper>
 
-                    <input
-                      type="number"
-                      name="amount"
-                      min="1"
-                      max="1000"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.amount}
-                    />
-                    {errors.amount && touched.amount ? <div>{errors.amount}</div> : null}
-
-                    <select name="unit" value={values.unit} onChange={handleChange}>
+                    <InlineSelect name="unit" value={values.unit} onChange={handleChange}>
                       <option value="pc">pc</option>
                       <option value="kg">kg</option>
                       <option value="g">g</option>
                       <option value="l">l</option>
                       <option value="pack">pack</option>
-                    </select>
-                    <button type="submit" disabled={isSubmitting}>
-                      submit
-                    </button>
-                  </Form>
+                    </InlineSelect>
+
+                    <ButtonIcon icon={checkIcon} type="submit" disabled={isSubmitting} />
+                    <ButtonIcon icon={cancelIcon} onClick={this.cancelEdit} />
+                  </StyledEditForm>
                 )}
               </Formik>
             ) : (
-              <>
+              <ListItem>
                 <p>{item.name}</p>
-                <p>{`${item.amount} ${item.unit}`}</p>{' '}
-              </>
+                <p>{`${item.amount} ${item.unit}`}</p>
+                <ButtonIcon icon={penIcon} onClick={() => this.activateInlineEdit(item.id)} />
+                <ButtonIcon icon={deleteIcon} onClick={() => this.openWarning(item.id)} />
+              </ListItem>
             )}
-            <ButtonIcon icon={penIcon} onClick={() => this.activateInput(item.id)} />
-            <ButtonIcon icon={deleteIcon} onClick={() => this.openWarning(item.id)} />
 
             {warning && clickedItem === item.id ? (
-              <Warning>
-                <WarningText>{`Are you sure you want to remove ${item.name} from your ${category} list?`}</WarningText>
-                <ButtonContainer>
-                  <Button onClick={() => removeItem(item.id)} secondary>
-                    Yes
-                  </Button>
-                  <Button secondary onClick={this.closeWarning}>
-                    No
-                  </Button>
-                </ButtonContainer>
-              </Warning>
+              <Warning
+                item={item.name}
+                category={category}
+                removeFn={() => removeItem(item.id)}
+                closeFn={this.closeWarning}
+              />
             ) : null}
-          </ListItem>
+          </div>
         ))}
       </div>
     );

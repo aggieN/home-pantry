@@ -1,30 +1,52 @@
 import styled from 'styled-components';
+import { Form } from 'formik';
 
-export const ListItem = styled.div`
+export const StyledEditForm = styled(Form)`
+  width: 100%;
   display: grid;
-  grid-template-columns: 15rem repeat(3, 1fr);
+  grid-template-columns: 4fr 2fr repeat(3, 1fr);
+  grid-gap: 0.5rem;
   align-items: center;
 `;
 
-export const Warning = styled.div`
-  position: fixed;
-  width: 40rem;
-  height: 45rem;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+export const InputWrapper = styled.div`
+  position: relative;
+`;
+
+export const InlineInput = styled.input`
+  outline: none;
+  border: 2px dashed ${({ theme }) => theme.greyLight};
+  border-radius: 0.5rem;
+  font-size: ${({ theme }) => theme.fontSize.s};
   text-align: center;
-  padding: 45px;
-  box-shadow: 1px 2px 10px ${({ theme }) => theme.dark};
-  background-color: white;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+
+  &:first-child {
+    text-align: left;
+  }
 `;
 
-export const WarningText = styled.p`
-  font-size: ${({ theme }) => theme.fontSize.xl};
-  font-weight: ${({ theme }) => theme.bold};
+export const Error = styled.div`
+  color: red;
+  font-size: 1.3rem;
+  position: absolute;
+  top: -1.8rem;
+  left: 0;
 `;
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
+export const InlineSelect = styled.select`
+  outline: none;
+  border: 2px dashed ${({ theme }) => theme.greyLight};
+  border-radius: 0.5rem;
+  font-size: ${({ theme }) => theme.fontSize.s};
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+`;
+
+export const ListItem = styled.div`
+  display: grid;
+  grid-template-columns: 4fr 2fr repeat(2, 1fr);
+  align-items: center;
+  color: black;
 `;

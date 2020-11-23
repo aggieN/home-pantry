@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 const Button = styled.button`
   padding: 0.3rem 2rem;
-  background-color: ${({ theme }) => theme.blue};
+  background-color: ${({ theme }) => theme.greyLight};
   border: none;
   border-radius: 1rem;
   height: 4rem;
@@ -37,7 +37,7 @@ const Button = styled.button`
         &::before, 
         &::after {
           content: '';
-          width: 2.2rem; 
+          width: 2.1rem; 
           height: 0.3rem;
           position: absolute;
           background-color: ${({ theme }) => theme.dark};

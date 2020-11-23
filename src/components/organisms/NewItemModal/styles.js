@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border-radius: 1.5rem;
 `;
 export const InnerWrapper = styled.div`
   width: 100%;
@@ -17,6 +18,7 @@ export const InnerWrapper = styled.div`
   background-color: white;
   box-shadow: 1px 2px 10px ${({ theme }) => theme.dark};
   text-align: center;
+  border-radius: 1.5rem;
 `;
 
 export const StyledForm = styled(Form)`
@@ -50,6 +52,7 @@ export const Input = styled.input`
   box-shadow: 1px 1px 5px ${({ theme }) => theme.dark};
   border: none;
   outline: none;
+  border-radius: 0.5rem;
 `;
 
 export const Select = styled.select`
@@ -58,6 +61,7 @@ export const Select = styled.select`
   box-shadow: 1px 1px 5px ${({ theme }) => theme.dark};
   border: none;
   outline: none;
+  border-radius: 0.5rem;
 `;
 
 export const Label = styled.label`

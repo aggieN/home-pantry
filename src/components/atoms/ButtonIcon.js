@@ -15,7 +15,7 @@ const ButtonIcon = styled.button`
   cursor: pointer;
 
   &:hover {
-    transform: scale(1.3);
+    transform: translateX(0.5rem);
   }
 `;
 

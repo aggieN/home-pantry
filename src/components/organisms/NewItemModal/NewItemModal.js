@@ -17,7 +17,7 @@ import {
   Error,
 } from './styles';
 
-const NewItemModal = ({ units, category, addItem, handleClose }) => (
+const NewItemModal = ({ category, addItem, handleClose }) => (
   <Wrapper>
     <InnerWrapper>
       <Button close onClick={handleClose} />
@@ -72,11 +72,12 @@ const NewItemModal = ({ units, category, addItem, handleClose }) => (
             <SelectWrapper>
               <Label htmlFor="unit">Unit</Label>
               <Select name="unit" value={values.unit} onChange={handleChange} onBlur={handleBlur}>
-                {units.map((unitItem) => (
-                  <option key={unitItem} value={unitItem}>
-                    {unitItem}
-                  </option>
-                ))}
+                <option value="pc">pc</option>
+                <option value="pack">pack</option>
+                <option value="kg">kg</option>
+                <option value="g">g</option>
+                <option value="l">l</option>
+                <option value="bottle">bottle</option>
               </Select>
             </SelectWrapper>
             <Button type="submit" disabled={isSubmitting}>
@@ -90,22 +91,12 @@ const NewItemModal = ({ units, category, addItem, handleClose }) => (
 );
 
 NewItemModal.propTypes = {
-  units: PropTypes.arrayOf(PropTypes.string).isRequired,
   category: PropTypes.string.isRequired,
   addItem: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const allUnitsArray = state.map((element) => element.items.map((item) => item.unit));
-  const allUnits = allUnitsArray.flat();
-  const unitsSet = new Set(allUnits);
-  const units = [...unitsSet];
-
-  return { units };
-};
-
 const mapDispatchToProps = (dispatch) => ({
   addItem: (category, itemContent) => dispatch(addItemAction(category, itemContent)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(NewItemModal);
+export default connect(null, mapDispatchToProps)(NewItemModal);

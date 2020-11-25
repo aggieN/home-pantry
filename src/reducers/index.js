@@ -1,83 +1,19 @@
 const initialState = [
   {
     category: 'vegetables',
-    items: [
-      {
-        id: 1,
-        name: 'carrots',
-        amount: 3,
-        unit: 'pc',
-      },
-      {
-        id: 2,
-        name: 'potatos',
-        amount: 1,
-        unit: 'kg',
-      },
-      {
-        id: 3,
-        name: 'broccoli',
-        amount: 2,
-        unit: 'pc',
-      },
-    ],
+    items: [],
   },
   {
     category: 'fruits',
-    items: [
-      {
-        id: 4,
-        name: 'oranges',
-        amount: 4,
-        unit: 'pc',
-      },
-      {
-        id: 5,
-        name: 'blueberries',
-        amount: 250,
-        unit: 'g',
-      },
-    ],
+    items: [],
   },
   {
     category: 'drinks',
-    items: [
-      {
-        id: 6,
-        name: 'Coca Cola',
-        amount: 2,
-        unit: 'l',
-      },
-      {
-        id: 7,
-        name: 'Grapefruit juice',
-        amount: 1,
-        unit: 'l',
-      },
-      {
-        id: 8,
-        name: 'Water',
-        amount: 1,
-        unit: 'l',
-      },
-    ],
+    items: [],
   },
   {
     category: 'cereal products',
-    items: [
-      {
-        id: 9,
-        name: 'Cereal',
-        amount: 2,
-        unit: 'pack',
-      },
-      {
-        id: 10,
-        name: 'Muesli',
-        amount: 1,
-        unit: 'kg',
-      },
-    ],
+    items: [],
   },
 ];
 
